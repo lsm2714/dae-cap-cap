@@ -1,11 +1,9 @@
-int_value = int(input())
+kaka = input() 
 
-int_list = []
+kaka_list = [] 
 
-for val in range(1, int_value + 1) :
-    print(val, end=' ')
-    if val % 2 != 0 :
-        int_list.append(val)
-print() 
-print(sum(int_list))
-    
+for i in kaka : 
+    if i not in kaka_list : 
+        kaka_list.append(i) 
+for k in kaka_list :
+    print(k, end='')
