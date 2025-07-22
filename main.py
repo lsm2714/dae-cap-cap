@@ -1,14 +1,11 @@
-word = input()
+int_value = int(input())
 
-word_list = []
-for n in word :
-    word_list.append(n)
-kaka = word_list[-1::-1]
-for i in kaka :
-    print(i, end='')
+int_list = []
 
-# or 
-
-jaja = input() 
-print(jaja[::-1])
-
+for val in range(1, int_value + 1) :
+    print(val, end=' ')
+    if val % 2 != 0 :
+        int_list.append(val)
+print() 
+print(sum(int_list))
+    
