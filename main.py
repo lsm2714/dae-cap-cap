@@ -1,9 +1,11 @@
-kaka = input() 
+int_value = input()
+int_list = int_value.split()
+max_value = max(int_list)
+print(max_value)
 
-kaka_list = [] 
-
-for i in kaka : 
-    if i not in kaka_list : 
-        kaka_list.append(i) 
-for k in kaka_list :
-    print(k, end='')
+count = 0 
+for i in int_list : 
+    count += 1 
+    if i == max_value :
+        print(count - 1)
+        break
