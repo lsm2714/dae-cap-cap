@@ -1,11 +1,30 @@
-int_value = input()
-int_list = int_value.split()
-max_value = max(int_list)
-print(max_value)
+def check_password(PW) :
+    if 8 <= len(PW) :
+        pass
+    else : 
+        return '사용 불가: 조건을 만족하지 않습니다.'
+    if any(c.isupper() for c in PW) :
+        pass
+    else : 
+        return '사용 불가: 조건을 만족하지 않습니다.'
+    if any(c.islower() for c in PW) :
+        pass
+    else : 
+        return '사용 불가: 조건을 만족하지 않습니다.'
+    if any(c.isdigit() for c in PW) :
+        pass 
+    else : 
+        return '사용 불가: 조건을 만족하지 않습니다.'
+    kals = []
+    for c in PW :
+        kals.append(c)
+    if "!" or '@' or '#' or '$' or '%' or '^' or '&' or '*' in kals :
+        return '사용 가능한 비밀번호입니다.'
+    else : 
+        return '사용 불가: 조건을 만족하지 않습니다.'
 
-count = 0 
-for i in int_list : 
-    count += 1 
-    if i == max_value :
-        print(count - 1)
-        break
+PW = input() 
+
+result = check_password(PW)
+
+print(result)
