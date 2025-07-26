@@ -15,13 +15,11 @@ def check_password(PW) :
         pass 
     else : 
         return '사용 불가: 조건을 만족하지 않습니다.'
-    kals = []
-    for c in PW :
-        kals.append(c)
-    if "!" or '@' or '#' or '$' or '%' or '^' or '&' or '*' in kals :
+    if any(c in "!@#$%^&*" for c in PW):
         return '사용 가능한 비밀번호입니다.'
-    else : 
+    else:
         return '사용 불가: 조건을 만족하지 않습니다.'
+
 
 PW = input() 
 
