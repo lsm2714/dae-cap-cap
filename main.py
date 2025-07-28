@@ -1,35 +1,37 @@
-num1 = float(input('기본값을 입력하세요 : '))
+# 주민 번호 입력
+number = input('주민번호를 입력하세요 : ')
 
-print('''1. 더하기
-2. 빼기
-3. 곱하기
-4. 나누기''')
+# '-'를 제외하고 모든 숫자 정수형으로 바꿔서 집어넣기 
+num_list = []
+for i in number :
+    if i == '-' :
+        continue
+    num_list.append(i)
+num_list = [int(i) for i in num_list]
 
-def select(num1) : 
-    sel = int(input('선택: '))
-    if sel == 1 :
-        num2 = int(input('숫자 입력: '))
-        return f'연산 결과: {num1 + num2}'
-    elif sel == 2 :
-        num2 = int(input('숫자 입력: '))
-        return f'연산 결과: {num1 - num2}'
-    elif sel == 3 :
-        num2 = int(input('숫자 입력: '))
-        return f'연산 결과: {num1 * num2}'
-    elif sel == 4 :
-        num2 = int(input('숫자 입력: '))
-        if num2 == 0 :
-            return '에러 : 0으로 나눌 수 없습니다.'
-        else : 
-            return f'연산 결과: {num1 / num2}'
-    else : 
-        return '에러 : 범위 밖의 숫자를 선택하셨습니다.'
+Xnum = [2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5]
 
-result = select(num1) 
+# 앞 12자리 숫자를 위 리스트의 숫자와 각각 곱하기 + 값 모두 더하기 
+num_list_add = []
+count = 0
+for num1 in Xnum :
+    num2 = num_list[count] 
+    num3 = num2 * num1
+    num_list_add.append(num3)
+    count += 1 
+sum_value = sum(num_list_add)
 
-print(result)
-
-
+# 계산할 거 계산 
+last_num = (11 - (sum_value % 11)) % 10 
+if last_num >= 10 :
+    last_num -= 10 
+print(last_num)
+    
+# 결과 확인 
+if last_num == num_list[-1] :
+    print('유효한 주민번호입니다.')
+else : 
+    print('유효하지 않은 주민번호입니다.')
 
 
     
