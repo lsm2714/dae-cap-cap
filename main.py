@@ -29,25 +29,34 @@ else :
         
 print(f'결과 : {result}')'''
 
-# 과일 메뉴 딕셔너리 설정 
-menu = {
-    '사과' : 1000,
-    '바나나' : 500,
-    '딸기' : 1200
+# 등급표 설정 
+dict_value = {
+    'A' : [i for i in range(90, 101)],
+    'B' : [i for i in range(80, 90)],
+    'C' : [i for i in range(70, 80)],
+    'D' : [i for i in range(60, 70)],
+    'F' : [i for i in range(0, 60)]
 }
 
-# 과일 이름 입력 + 개수 입력 등등 
-menu_list = ['사과', '바나나', '딸기']
-while True :
-    name_value = input('과일 이름을 입력하세요: ')
-    if name_value in menu_list :
-        break
-    else : 
-        print('잘못된 입력입니다. 사과, 바나나, 딸기 중에서 입력하세요')
+# 반복 설정 + 학생 정보 딕셔너리에 추가 
+students = {}
+while True : 
+    name = input('학생의 이름을 입력하세요: ')
+    if name == '종료' :
+        break 
+    number = int(input('학생의 점수를 입력하세요: '))
+    students[name] = number 
 
-num = int(input('수량을 입력하세요: '))
+if students == {} :
+    print('입력된 학생 정보가 없습니다.')
+else : 
+    print('---- 결과 ----')
+    for name, number in students.items() :
+        print(f'{name}: {number}점', end='')
+        for a in dict_value.keys() :
+            if number in dict_value[a] :
+                print(f' ({a}등급)')
 
-print(f'총 가격은 {menu[name_value] * num}원입니다.')
 
 
 
