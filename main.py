@@ -1,23 +1,15 @@
-movie_dict = {} 
-
-# 반복 설정 
+# 주민번호 입력 
 while True : 
-    name = input('영화 제목을 입력하세요: ')
-    if name == '종료' :
+    number = input('주민번호를 입력하세요: ')
+    if len(number) != 14 :
+        print('올바른 주민번호 형식이 아닙니다.')
+    else :
         break
-    number = float(input('평점을 입력하세요: '))
-    # 만약 영화 제목이 movie_dict에 없을 경우 새 리스트 생성 
-    if name not in movie_dict :
-        movie_dict[name] = [number]
-    # 만약 있을 경우 그 키 값에 평점을 append()로 추가 
-    else : 
-        movie_dict[name].append(number)
+
+print(f'마스킹된 주민번호: {number[:8]}',end='') 
+print('******')
     
-# 평점 결과 출력 
-for k, v in movie_dict.items() :
-    print(f'{k}: {v} -> 평균: {(sum(v) / len(v)):.2f}')
-
-
+    
 
 
 
