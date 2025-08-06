@@ -1,15 +1,25 @@
-# 공백을 기준으로 문자열에서 특정 단어의 출현 횟수 검출하기 
-input_value = input('문자열 입력: ')
-input_value = input_value.split()
+# 명시적 형변환 
+numbers = input('숫자들을 쉼표로 구분하여 입력하세요: ')
+numbers = numbers.split(', ')
+numbers = [int(i) for i in numbers]
 
-word = input('단어 입력: ')
+# 총합 계산 
+num_list = []
+for num in numbers : 
+    num_list.append(num)
+    if sum(num_list) > 100 :
+        print('총합이 100을 초과하였습니다.')
+        print(f'현재까지의 입력값들: {num_list}')
+        print(f'최종 총합: {sum(num_list)}')
+        exit()
 
-count = 0 
-for i in input_value :
-    if i == word :
-        count += 1
-print(f'단어 "{word}"의 출현 빈도: {count}')
-    
+print('총합이 100을 초과하지 않았습니다.')
+print(f'입력된 모든 숫자들: {num_list}')
+print(f'최종 총합: {sum(num_list)}')
+
+        
+
+
 
 
             
