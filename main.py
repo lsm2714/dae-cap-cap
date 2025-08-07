@@ -1,46 +1,66 @@
-# 가위, 바위, 보 확장 버전 (in, not in 연산자 사용 금지)
-import random
+import random 
 
-count = 1 
-win = 0
-lose = 0 
-draw = 0
-list_value = ['가위', '바위', '보']
-
-dict_value = {
-    '가위' : '보',
-    '바위' : '가위',
-    '보' : '바위'
-}
+numbers = ['첫 ', '두 ', '세 ']
+words_list = []
 
 # 반복 설정 
-while count < 4 : 
-    input_value = input('\n가위, 바위, 보 중에서 하나를 입력하세요: ')
-    if input_value != '가위' and input_value != '바위' and input_value != '보': 
-        print('가위, 바위, 보 중에서 하나를 선택하세요.')
-        continue
-    computer = random.choice(list_value)
-    print(f'파소콩의 선택: {computer}')
-    if input_value == computer : 
-        print('무승부!', end=' ')
-        draw += 1 
-    elif computer == dict_value[input_value] :
-        print('승리!', end=' ')
-        win += 1 
-    else : 
-        print('패배!', end=' ')
-        lose += 1
-    print(f'현재 전적: {win}승 {lose}패 {draw}무')
-    count += 1
+for i in numbers :
+    word = input(f'{i}번째 글자를 입력하세요: ')
+    if 5 > len(word) or len(word) > 20 :
+        while True : 
+            word = input('5 이상 20 이하 길이의 글자를 입력하세요\n')
+            if 5 < len(word) and len(word) < 20 :
+                break
+    words_list.append(word)
 
-# 승패무 결과 설정 
-print(f'전적: {win}승 {lose}패 {draw}무')
-if win > lose :
-    print('최종 승자: 이승민')
-elif lose > win :
-    print('최종 승자: 파소콩쨩')
+ran = random.choice(words_list) 
+print(f'\n단어 선택 완료 게임을 시작합니다. 선택된 단어: {ran}')
+
+# 선택된 글자의 50% 가리기 
+index = [i for i in range(len(ran))]
+if len(ran) % 2 == 0 : 
+    index_50 = len(ran) / 2
 else : 
-    print('최종 결과: 무승부')
+    index_50 = len(ran) / 2 + 0.5 
+# 랜덤으로 블라인드 처리될 인덱스 가지기 
+blind = [] 
+for i in random.sample(index, int(index_50)) : 
+    blind.append(i)
+# 블라인드 처리 
+blinded = ['_' if i in blind else v for i, v in enumerate(ran)]
+
+# 글자 입력해서 블라인드 제거하기 
+count = 1 
+while '_' in blinded : 
+    print(f'\n{count}번째 시도, 아래 문자를 구성하는 글자 1개를 입력하세요')
+    print(' '.join(blinded))
+    guess = input() 
+    count += 1
+    
+    if len(guess) != 1 :
+        print('한글자만 입력하세요')
+        continue
+    
+    if guess in ran : 
+        hit = 0
+        for i in range(len(ran)) : 
+            if guess == ran[i] and blinded[i] == '_': 
+                blinded[i] = guess
+                hit += 1 
+        print(f'입력한 글자 블라인드 문자 내 포함: {hit}글자')
+    else : 
+        print('단어 내 포함되지 않는 글자입니다.')
+
+# 결과 출력 
+print(f'Clear - 선택된 단어: {ran}, 총 시도 횟수: {count - 1}')
+    
+    
+            
+    
+
+
+    
+
     
 
 
