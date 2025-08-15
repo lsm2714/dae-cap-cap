@@ -1,17 +1,18 @@
-# 문장 입력 받기 
-input_value = input('문장을 입력하세요: ') 
+# 문자 입력 받기 
+input_value = input('문자열을 입력하세요: ') 
 words = input_value.split() 
 
-# 4글자 이상인 문자만 리스트에 담기 
-list_value = []
+bad_word = input('금지 문자를 입력하세요: ')
+
+# 금지어 포함된 문자 구분 
+list_value = [] 
 for w in words : 
-    if len(w) >= 4 :
-        list_value.append(w.upper())
+    if bad_word in w : 
+        continue
+    list_value.append(w)
 
-# 공백으로 나눠서 출력하기 
+# 결과 출력 
 print(' '.join(list_value))
-
-
             
         
         
