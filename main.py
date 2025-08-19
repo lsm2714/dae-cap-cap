@@ -1,23 +1,22 @@
-# 문자열 입력, 리스트에 저장 
+# 문자열 입력받기 
 input_value = input()
-list_value = input_value.split() 
 
-# 딕셔너리에 각 단어의 길이와 함께 저장 
+words = ''
+for w in input_value.lower() : 
+    if w == ' ' :
+        continue
+    words += w
+
+# 문자열 등장 횟수 딕셔너리에 저장 
 dict_value = {} 
-for element in list_value : 
-    if element not in dict_value : 
-        dict_value[element] = len(element)
+for w in words : 
+    if w not in dict_value : 
+        dict_value[w] = 1 
+    else : 
+        dict_value[w] += 1 
 
-# 딕셔너리 출력 
 print(dict_value)
 
-# value가 5 이상인 key값만 출력 
-keys = [k for k, v in dict_value.items() if v >= 5]
-if keys != [] : 
-    print('value가 5 이상인 key값들: ', ', '.join(keys))
-else : 
-    print('value가 5 이상인 key값들: 없음')
-    
     
 
 
