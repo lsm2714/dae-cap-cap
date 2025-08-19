@@ -1,21 +1,14 @@
-# 문자열 입력받기 
+# 문자열을 숫자와 함께 입력받기 
 input_value = input()
 
-words = ''
-for w in input_value.lower() : 
-    if w == ' ' :
-        continue
-    words += w
+add = 0 
+numbers = [str(i) for i in range(10)]
+for num in input_value : 
+    if num in numbers : 
+        add += int(num)
 
-# 문자열 등장 횟수 딕셔너리에 저장 
-dict_value = {} 
-for w in words : 
-    if w not in dict_value : 
-        dict_value[w] = 1 
-    else : 
-        dict_value[w] += 1 
+print(f'총 합계: {add}')
 
-print(dict_value)
 
     
 
