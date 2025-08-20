@@ -1,20 +1,30 @@
-# 아나그램 판별기 만들기 
-# 문자열 입력 
-input_value = input('첫 번째 문자 입력: ')
-list_value = [i.lower() for i in input_value] 
-input_value2 = input('두 번째 문자 입력: ')
-list_value2 = [i.lower() for i in input_value2]
+# 중복 제거 후 정렬
+# 숫자 입력 후 리스트에 담기 
+numbers = input('숫자들을 입력하세요: ')
+numbers = [int(i) for i in numbers if i != ' ']
 
-# 아나그램 확인 
-for w in list_value2 : 
-    for i, e in enumerate(list_value) : 
-        if w == e : 
-             del list_value[i]
-if list_value == [] : 
-    print('아나그램입니다.')
-else : 
-    print('아나그램이 아닙니다.')
+# 중복 제거 후 리스트에 오름차 순으로 담기 
+list_value = [] 
+for num in numbers : 
+    if num not in list_value : 
+        list_value.append(num)
 
+num_list = [] 
+while list_value != [] : 
+    min_value = min(list_value)
+    num_list.append(min_value)
+    for i, v in enumerate(list_value) :
+        if v == min_value : 
+            del list_value[i]
+    
+print(num_list)
+    
+    
+    
+
+
+
+    
 
         
         
