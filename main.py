@@ -1,20 +1,19 @@
-# 소수 판별기 
-# 숫자 입력 후 리스트에 담기 
-number = int(input('숫자를 입력하세요: ')) 
-numbers = [num for num in range(2, number + 1)]
+# 아나그램 판별기 만들기 
+# 문자열 입력 
+input_value = input('첫 번째 문자 입력: ')
+list_value = [i.lower() for i in input_value] 
+input_value2 = input('두 번째 문자 입력: ')
+list_value2 = [i.lower() for i in input_value2]
 
-# for 반복문으로 소수 판별하기 
-list_value = []
-for num1 in numbers : 
-    check_list = []
-    for num2 in range(2, num1) : 
-        num = num1 % num2
-        if num == 0 : 
-            check_list.append(num)
-    if check_list == [] :
-        list_value.append(num1)
-
-print(list_value)
+# 아나그램 확인 
+for w in list_value2 : 
+    for i, e in enumerate(list_value) : 
+        if w == e : 
+             del list_value[i]
+if list_value == [] : 
+    print('아나그램입니다.')
+else : 
+    print('아나그램이 아닙니다.')
 
 
         
