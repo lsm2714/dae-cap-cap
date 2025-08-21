@@ -11,16 +11,12 @@ for i in input_value :
 list_value.append(words)
 
 # 문자열 압축하기 
-count = 0
 str_value = ''
 for i1 in list_value : 
     if len(i1) == 1 :
         str_value += i1[0]
     else : 
-        count = 0
-        for i2 in i1 : 
-            count += 1 
-        str_value += i1[0] + str(count)
+        str_value += i1[0] + str(len(i1))
 
 if len(input_value) <= len(str_value) : 
     print(f'압축된 문자: {input_value}')
