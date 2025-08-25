@@ -1,18 +1,12 @@
-# 콜라츠 추측 
-# 숫자 입력 받기 
-number = int(input('입력: ')) 
-if number == 1 : 
-    print('총 1단계 만에 1에 도달했습니다.')
+# 팰린드롬 문장 검사기 
+# 문장 입력 받기 
+input_value = input('입력: ')
+list_value = [i.lower() for i in input_value if i != ' ']
+
+if list_value == list_value[::-1] : 
+    print('팰린드롬입니다.')
 else : 
-    count = 0
-    while number != 1 : 
-        count += 1
-        if number % 2 == 0 : 
-            number /= 2 
-        else :
-            number = number * 3 + 1
-    print(f'총 {count}단계 만에 1에 도달했습니다.') 
-        
+    print('팰린드롬이 아닙니다.')
         
 
 
