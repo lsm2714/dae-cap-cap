@@ -1,68 +1,38 @@
-# 할 일 관리 프로그램 
-list_value = []
+# 숫자 퀴즈 게임 
+import random
+score = 0
+numbers = [i for i in range(10)]
 
 # 반복 설정 
 while True : 
-    select = int(input('''==== 할 일 관리 프로그램 ====
-1. 할 일 추가
-2. 할 일 완료 처리
-3. 할 일 삭제
-4. 할 일 목록 보기
-5. 종료
+    select = int(input('''==== 숫자 퀴즈 게임 ====
+1. 퀴즈 시작
+2. 점수 보기
+3. 종료
 선택: '''))
     
-    # 인덱스 리스트
-    index_list = []
-    for i, e in enumerate(list_value) :
-        index_list.append(i)
-    
     # 1번 선택 설정 
-    if select == 1 : 
-        input_value = input('할 일 내용: ')
-        count = False 
-        for i in list_value :
-            if input_value == i[0] :
-                count = True 
-        if count == False :
-            list_value.append([input_value, '미완료'])
-            print('추가되었습니다!\n')
+    if select == 1 :
+        list_random = [i for i in random.sample(numbers, 2)]
+        print(f'문제: {list_random[0]} + {list_random[1]} = ?')
+        question = int(input('정답 입력: '))
+        if question == sum(list_random) :
+            score += 1
+            print(f'정답입니다! 현재 점수: {score}점\n')
         else : 
-            print('이미 저장된 할(한) 일입니다.\n')
+            score -= 1
+            print(f'오답입니다. 정답은 {sum(list_random)}입니다. 현재 점수: {score}점\n')
     
     # 2번 선택 설정 
-    elif select == 2 : 
-        index = int(input('완료 처리할 인덱스: '))
-        if index in index_list :
-            list_value[index][1] = '완료'
-            print(f'{list_value[index][0]} -> 완료 처리되었습니다!\n')
-        else : 
-            print('인덱스 범위를 벗어났습니다.\n')
-
+    elif select == 2 :
+        print(f'현재 점수: {score}\n')
+    
     # 3번 선택 설정 
     elif select == 3 :
-        index = int(input('삭제할 인덱스: '))
-        if index in index_list :
-            del list_value[index]
-            print('삭제가 완료되었습니다.\n')
-        else : 
-            print('인덱스 범위를 벗어났습니다.\n')
-    
-    # 4번 선택 설정 
-    elif select == 4 : 
-        print('현재 할 일 목록: ')
-        if list_value != [] :
-            for i, e in enumerate(list_value) :
-                print(f'{i}. [{e[1]}] {e[0]}')
-            print()
-        else : 
-            print('할 일 목록이 없습니다.\n')
-
-    # 5번 종료 설정 
-    elif select == 5 :
         break
 
     # 잘못된 입력 설정 
-    else :
-        print('잘못된 입력입니다. 1부터 5 사이의 값 중 입력해 주세요.\n')
-
-print('프로그램을 종료합니다.')
+    else : 
+        print('잘못된 입력입니다. 1부터 3 중에서 선택하세요.')
+    
+print(f'프로그램을 종료합니다. 최종 점수: {score}점')
