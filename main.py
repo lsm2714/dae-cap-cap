@@ -1,57 +1,31 @@
-# 영화 예매 프로그램 
-list_value = [[], [], [], [], []]
-for i in list_value: 
-    for _ in range(5) :
-        i.append('O')
+# 현금 인출 프로그램
+# 딕셔너리에 돈 저장하기 
+list_value = [50000, 10000, 5000, 1000, 500, 100, 50, 10] 
+dict_value = {} 
+keys = [str(i) + '원' for i in list_value]
+for i in keys : 
+    dict_value[i] = 0
+# 인출 금액 입력받기 
+money = int(input('인출할 금액을 입력하세요: '))
+if money < 10 :
+    print('10원 이하는 인출할 수 없습니다.')
+    exit() 
 
-# 반복 설정 
-while True : 
-    select = int(input('''==== 영화 예매 프로그램 ====
-1. 좌석 보기
-2. 좌석 예매 
-3. 좌석 취소
-4. 종료
-선택: '''))
-    
-    # 1번 선택 설정 
-    if select == 1 :
-        for i in list_value : 
-            print(' '.join(i))
-        print() 
-    
-    # 2번 선택 설정 
-    elif select == 2 :
-        rows = int(input('행 번호 입력 (1~5): '))
-        columns = int(input('열 번호 입력 (1~5): '))
-        if rows and columns in [1, 2, 3, 4, 5] :
-            if list_value[rows - 1][columns - 1] == 'O' :
-                list_value[rows - 1][columns - 1] = 'X'
-                print('예매 완료!\n')
-            else : 
-                print('이미 예약된 좌석입니다.\n')
-        else : 
-            print('잘못된 입력입니다.\n')
+# 계산 
+print('지폐 계수: ')
+for num in list_value :  
+    while money >= num : 
+        money -= num
+        dict_value[f'{num}원'] += 1
 
-    # 3번 선택 설정 
-    elif select == 3 :
-        rows = int(input('행 번호 입력 (1~5): '))
-        columns = int(input('열 번호 입력 (1~5): '))
-        if rows and columns in [1, 2, 3, 4, 5] :
-            if list_value[rows - 1][columns - 1] == 'X' :
-                list_value[rows - 1][columns - 1] = 'O'
-                print('취소 완료!\n')
-            else :
-                print('예약되어 있는 자리가 아닙니다.\n')
-        else : 
-            print('잘못된 입력입니다.\n')
-    
-    # 4번 선택 설정 
-    elif select == 4 : 
-        break
-
-    # 잘못된 입력 설정 
+# 출력 
+for k, v in dict_value.items() :
+    if v == 0 :
+        continue 
+    # 1000원 이하일 경우 단위 = '개' 
+    if len(k) <= 4 :
+        print(f'{k}: {v}개')
+    # 아니면 '장'
     else : 
-        print('잘못된 입력입니다. 1부터 4 사이의 선택지 중에서 선택하세요.\n')
-
-print('프로그램을 종료합니다.')
+        print(f'{k}: {v}장')
 
