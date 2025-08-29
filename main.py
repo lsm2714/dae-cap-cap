@@ -1,31 +1,28 @@
-# 현금 인출 프로그램
-# 딕셔너리에 돈 저장하기 
-list_value = [50000, 10000, 5000, 1000, 500, 100, 50, 10] 
-dict_value = {} 
-keys = [str(i) + '원' for i in list_value]
-for i in keys : 
-    dict_value[i] = 0
-# 인출 금액 입력받기 
-money = int(input('인출할 금액을 입력하세요: '))
-if money < 10 :
-    print('10원 이하는 인출할 수 없습니다.')
-    exit() 
+# 로또 당첨 시뮬레이터 
+# 랜덤으로 6개 번호 생성
+import random 
+numbers = [i for i in range(1, 46)]
+ran_list = [i for i in random.sample(numbers, 6)]
+ran_list = sorted(ran_list)
+ranking_list = ['꽝', '꽝', '꽝', '4등', '3등', '2등', '1등']
 
-# 계산 
-print('지폐 계수: ')
-for num in list_value :  
-    while money >= num : 
-        money -= num
-        dict_value[f'{num}원'] += 1
+# 공백을 기준으로 번호 6개 입력 
+your_numbers = input('번호 6개를 입력하세요 (1~45, 공백 구분): ').split()
+your_numbers = [int(i) for i in your_numbers]
 
-# 출력 
-for k, v in dict_value.items() :
-    if v == 0 :
-        continue 
-    # 1000원 이하일 경우 단위 = '개' 
-    if len(k) <= 4 :
-        print(f'{k}: {v}개')
-    # 아니면 '장'
-    else : 
-        print(f'{k}: {v}장')
+# 일치 수 확인, 등수 결정 
+count = 0 
+for num in your_numbers : 
+    if num in ran_list :
+        count += 1
+
+for i in range(7) :
+    if count == i :
+        result = ranking_list[i]
+
+# 결과 출력 
+print(f'당첨 번호: {", ".join([str(i) for i in ran_list])}')
+print(f'내 번호: {", ".join([str(i) for i in your_numbers])}\n')
+print(f'맞춘 개수: {count}개')
+print(f'결과: {result}')
 
