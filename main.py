@@ -1,28 +1,23 @@
-# 로또 당첨 시뮬레이터 
-# 랜덤으로 6개 번호 생성
-import random 
-numbers = [i for i in range(1, 46)]
-ran_list = [i for i in random.sample(numbers, 6)]
-ran_list = sorted(ran_list)
-ranking_list = ['꽝', '꽝', '꽝', '4등', '3등', '2등', '1등']
+# 오늘 날짜와 목표 날짜 
+from datetime import date 
 
-# 공백을 기준으로 번호 6개 입력 
-your_numbers = input('번호 6개를 입력하세요 (1~45, 공백 구분): ').split()
-your_numbers = [int(i) for i in your_numbers]
+# 목표 날짜 입력받고 저장하기 + 오늘 날짜도 저장 
+year = int(input('연도 입력: '))
+month = int(input('월 입력: '))
+day = int(input('일 입력: '))
 
-# 일치 수 확인, 등수 결정 
-count = 0 
-for num in your_numbers : 
-    if num in ran_list :
-        count += 1
+Target_day = date(year, month, day) # 목표 날짜 
+today = date.today() # 오늘 날짜 
 
-for i in range(7) :
-    if count == i :
-        result = ranking_list[i]
+# 오늘 날짜와 목표 날짜 출력 
+print(f'\n오늘 날짜: {today}')
+print(f'목표 날짜: {Target_day}')
 
-# 결과 출력 
-print(f'당첨 번호: {", ".join([str(i) for i in ran_list])}')
-print(f'내 번호: {", ".join([str(i) for i in your_numbers])}\n')
-print(f'맞춘 개수: {count}개')
-print(f'결과: {result}')
-
+# 날짜 차이 계산하고 알맞은 출력 설정 
+diff = (Target_day - today).days # days하면 날짜 숫자만 저장됨 
+if diff > 0 :
+    print(f'D-day: {diff}일 남았습니다.')
+elif diff < 0 :
+    print(f'{abs(diff)}일 지났습니다.') # abs() 함수 사용으로 정상화 
+else : 
+    print('오늘입니다!')
