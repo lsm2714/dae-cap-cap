@@ -1,23 +1,25 @@
-# 오늘 날짜와 목표 날짜 
-from datetime import date 
+# 주사위 2개의 합 맞추기 
+import random 
 
-# 목표 날짜 입력받고 저장하기 + 오늘 날짜도 저장 
-year = int(input('연도 입력: '))
-month = int(input('월 입력: '))
-day = int(input('일 입력: '))
+# 랜덤으로 생성한 주사위 값 2개 더하기 (중복 가능)
+ran_number = []
+for _ in range(2) : 
+    ran = random.choice(range(1, 7)) 
+    ran_number.append(ran)
+ran_sum = sum(ran_number)
 
-Target_day = date(year, month, day) # 목표 날짜 
-today = date.today() # 오늘 날짜 
+# 반복 설정 (5번 시도해도 오답일 시 빠져나가기)
+count = 1
+while count != 6 : 
+    count += 1 # 이거 다섯 번째 시도에서 6 되는데 while 반복문은 while 반복문 밖의 코드를 기준으로 잡기 때문에
+    # 전부 틀리고 아래 코드가 다 끝나야 밖의 count가 6이 되서 종료함 
+    print('주사위 두 개의 합을 맞춰보세요! (2 ~ 12)')
+    input_value = int(input('입력: '))
+    if input_value != ran_sum :
+        if count != 6 :
+            print('틀렸습니다! 다시 시도하세요.')
+    else : 
+        print(f'정답입니다! 주사위: {", ".join([str(i) for i in ran_number])} (합: {ran_sum})')
+        exit() 
 
-# 오늘 날짜와 목표 날짜 출력 
-print(f'\n오늘 날짜: {today}')
-print(f'목표 날짜: {Target_day}')
-
-# 날짜 차이 계산하고 알맞은 출력 설정 
-diff = (Target_day - today).days # days하면 날짜 숫자만 저장됨 
-if diff > 0 :
-    print(f'D-day: {diff}일 남았습니다.')
-elif diff < 0 :
-    print(f'{abs(diff)}일 지났습니다.') # abs() 함수 사용으로 정상화 
-else : 
-    print('오늘입니다!')
+print(f'게임 오버! 정답은 {ran_sum}였습니다.')
