@@ -1,25 +1,25 @@
-# 주사위 2개의 합 맞추기 
+# 단어 섞기 퀴즈 
 import random 
 
-# 랜덤으로 생성한 주사위 값 2개 더하기 (중복 가능)
-ran_number = []
-for _ in range(2) : 
-    ran = random.choice(range(1, 7)) 
-    ran_number.append(ran)
-ran_sum = sum(ran_number)
+# 단어 목록 준비 
+words = ['크리치비치', '자바스크립트', '야이여자야', '케모노프렌즈']
 
-# 반복 설정 (5번 시도해도 오답일 시 빠져나가기)
-count = 1
-while count != 6 : 
-    count += 1 # 이거 다섯 번째 시도에서 6 되는데 while 반복문은 while 반복문 밖의 코드를 기준으로 잡기 때문에
-    # 전부 틀리고 아래 코드가 다 끝나야 밖의 count가 6이 되서 종료함 
-    print('주사위 두 개의 합을 맞춰보세요! (2 ~ 12)')
-    input_value = int(input('입력: '))
-    if input_value != ran_sum :
-        if count != 6 :
-            print('틀렸습니다! 다시 시도하세요.')
-    else : 
-        print(f'정답입니다! 주사위: {", ".join([str(i) for i in ran_number])} (합: {ran_sum})')
-        exit() 
+# 특정 단어 선택 후 랜덤으로 섞기 (랜덤으로 섞은 단어는 원래 형태와 같아선 안됨)
+word = random.choice(words)
+word_list = [i for i in word]
+# 같지 않은 게 나올 때까지 while 반복문 작동 
+while True : 
+    list_value = []
+    for i in random.sample(word_list, len(word_list)) : 
+        list_value.append(i)
+    if word_list != list_value :
+        break 
 
-print(f'게임 오버! 정답은 {ran_sum}였습니다.')
+# 문제 출력, 입력, 결과 확인
+ran_word = ''.join(list_value)
+print(f'섞인 단어: {ran_word}')
+guess = input('원래 단어는? ')
+if guess == word :
+    print('정답입니다!')
+else : 
+    print(f'오답입니다. 정답은 {word}였습니다.')
