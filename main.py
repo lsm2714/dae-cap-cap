@@ -1,25 +1,26 @@
-# 단어 섞기 퀴즈 
-import random 
+# 숫자 통계 프로그램 
+numbers_list = []
 
-# 단어 목록 준비 
-words = ['크리치비치', '자바스크립트', '야이여자야', '케모노프렌즈']
-
-# 특정 단어 선택 후 랜덤으로 섞기 (랜덤으로 섞은 단어는 원래 형태와 같아선 안됨)
-word = random.choice(words)
-word_list = [i for i in word]
-# 같지 않은 게 나올 때까지 while 반복문 작동 
+# 반복 설정 + 0 입력 시 break 
 while True : 
-    list_value = []
-    for i in random.sample(word_list, len(word_list)) : 
-        list_value.append(i)
-    if word_list != list_value :
-        break 
+    num = int(input('숫자 입력 (0 입력 시 종료): '))
+    if num == 0 :
+        break
+    numbers_list.append(num)
 
-# 문제 출력, 입력, 결과 확인
-ran_word = ''.join(list_value)
-print(f'섞인 단어: {ran_word}')
-guess = input('원래 단어는? ')
-if guess == word :
-    print('정답입니다!')
+# 결과 출력 
+if numbers_list : # 빈 리스트는 False로 구분되기 때문에 그냥 놔두면 됨 
+    # 딕셔너리에서 계산
+    dict_value = {
+    '합' : sum(numbers_list),
+    '평균' : sum(numbers_list) / len(numbers_list),
+    '최댓값' : max(numbers_list),
+    '최솟값' : min(numbers_list),
+    '짝수 개수' : len([i for i in numbers_list if i % 2 == 0]),
+    '홀수 개수' : len([i for i in numbers_list if i % 2 != 0])
+    }
+    print('\n결과: ')
+    for k, v in dict_value.items() : 
+        print(f'{k}: {v}')
 else : 
-    print(f'오답입니다. 정답은 {word}였습니다.')
+    print('\n저장된 숫자가 없습니다.')
