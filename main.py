@@ -1,26 +1,23 @@
-# 숫자 통계 프로그램 
-numbers_list = []
+# 비밀번호 유효성 검사기 
+# 비밀번호 입력 
+password = input('비밀번호 입력: ')
 
-# 반복 설정 + 0 입력 시 break 
-while True : 
-    num = int(input('숫자 입력 (0 입력 시 종료): '))
-    if num == 0 :
-        break
-    numbers_list.append(num)
-
-# 결과 출력 
-if numbers_list : # 빈 리스트는 False로 구분되기 때문에 그냥 놔두면 됨 
-    # 딕셔너리에서 계산
-    dict_value = {
-    '합' : sum(numbers_list),
-    '평균' : sum(numbers_list) / len(numbers_list),
-    '최댓값' : max(numbers_list),
-    '최솟값' : min(numbers_list),
-    '짝수 개수' : len([i for i in numbers_list if i % 2 == 0]),
-    '홀수 개수' : len([i for i in numbers_list if i % 2 != 0])
-    }
-    print('\n결과: ')
-    for k, v in dict_value.items() : 
-        print(f'{k}: {v}')
+# 조건 만족하는지 확인
+result = '비밀번호가 조건을 만족하지 않습니다.' 
+# 1. 길이가 8자 이상 
+if len(password) < 8 :
+    print(result)
 else : 
-    print('\n저장된 숫자가 없습니다.')
+    # 2, 3. 대소문자 각각 최소 1개 포함 
+    if not (any(i.isupper() for i in password) and any(i.islower() for i in password)) : 
+        print(result)
+    else : 
+        # 4. 숫자 최소 1개 포함 
+        if not any(i.isdigit() for i in password) :
+            print(result)
+        else : 
+            # 5. 특수문자 최소 1개 포함
+            if not any(i in '!@#$%^&*' for i in password) : 
+                print(result)
+            else : 
+                print('안전한 비밀번호입니다.')
