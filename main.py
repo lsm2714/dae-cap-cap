@@ -1,36 +1,39 @@
-# 단어 빈도수 세기 
-dict_value = {} 
-# 반복 설정 
-while True : 
-    # 문장 입력
-    words = input('문장 입력 (빈 줄 입력 시 종료): ')
+# 랜덤 비밀번호 생성기 
+import random 
 
-    # 특수 문자 제거 후 띄어쓰기를 기준으로 리스트에 저장 
-    new_words = ''
-    for i in words : 
-        if i in '.,!?' :
-            continue 
-        new_words += i 
-    new_words = new_words.split() 
-    
-    # new_words == [] 일 경우 종료 
-    if new_words == [] :
+uppers = 'QAZWSXEDCRFVTGBYHNUJMIKOLP'
+lowers = uppers.lower() 
+digits = '1234567890'
+special = '!@#$%^&*'
+all_value = uppers + lowers + digits + special
+
+# 비밀번호 길이 입력 
+while True : 
+    length = int(input('비밀번호 길이 입력: '))
+    if length < 6 :
+        print('비밀번호 길이가 너무 짧습니다. 다시 입력해주세요.')
+        continue
+    elif length > 20 : 
+        print('비밀번호 길이가 너무 깁니다. 다시 입력해주세요.')
+        continue
+    else : 
         break
 
-    # 딕셔너리에 넣기 
-    for ele in new_words : 
-        # dict_value에 없을 경우에는 새로 추가 
-        if ele not in dict_value : 
-            dict_value[ele.lower()] = 1 
-        # 있으면 1추가 
-        else : 
-            dict_value[ele.lower()] += 1 
+# 올바른 비밀번호가 나올 때까지 반복 설정 
+while True : 
+    # 비밀번호 생성 
+    password = '' 
+    for i in random.sample(all_value, length):
+        password += i 
+    
+    # 조건 설정 (대소문자 각각 최소 1개, 숫자 최소 1개, 특수문자 최소 1개) 
+    has_upper = any(i.isupper() for i in password)
+    has_lower = any(i.islower() for i in password)
+    has_digit = any(i.isdigit() for i in password)
+    has_special = any(i in special for i in password)
 
-# 딕셔너리 value값이 큰 순으로 정렬 후 결과 출력 
-dict_value = sorted(dict_value.items(), key=lambda x: x[1], reverse=True)
-print('\n단어 빈도수: ')
-if dict_value != {} : 
-    for e in dict_value :
-        print(f'{e[0]}: {e[1]}')
-else : 
-    print('\n입력된 문장이 없습니다.')
+    # 전부 True일 경우 break
+    if has_digit and has_lower and has_upper and has_special :
+        break
+
+print(f'생성된 비밀번호: {password}')
