@@ -1,39 +1,67 @@
-# 랜덤 비밀번호 생성기 
-import random 
+# 학생 성적 관리 프로그램 
+dict_value = {} 
+scores = []
 
-uppers = 'QAZWSXEDCRFVTGBYHNUJMIKOLP'
-lowers = uppers.lower() 
-digits = '1234567890'
-special = '!@#$%^&*'
-all_value = uppers + lowers + digits + special
-
-# 비밀번호 길이 입력 
+# 학생 정보 입력 설정 (반복)
+print('학생 이름과 점수를 입력하세요 (종료 입력 시 멈춤): ')
 while True : 
-    length = int(input('비밀번호 길이 입력: '))
-    if length < 6 :
-        print('비밀번호 길이가 너무 짧습니다. 다시 입력해주세요.')
-        continue
-    elif length > 20 : 
-        print('비밀번호 길이가 너무 깁니다. 다시 입력해주세요.')
-        continue
-    else : 
+    student = input()
+    if student == '종료' : 
         break
+    student = student.split() 
+    dict_value[student[0]] = int(student[1])
 
-# 올바른 비밀번호가 나올 때까지 반복 설정 
-while True : 
-    # 비밀번호 생성 
-    password = '' 
-    for i in random.sample(all_value, length):
-        password += i 
+# 바로 종료 입력 시 
+if dict_value == {} : 
+    print('\n저장된 학생 정보가 없습니다.')
+    exit()
     
-    # 조건 설정 (대소문자 각각 최소 1개, 숫자 최소 1개, 특수문자 최소 1개) 
-    has_upper = any(i.isupper() for i in password)
-    has_lower = any(i.islower() for i in password)
-    has_digit = any(i.isdigit() for i in password)
-    has_special = any(i in special for i in password)
-
-    # 전부 True일 경우 break
-    if has_digit and has_lower and has_upper and has_special :
+# 메뉴 선택 설정 (반복)
+while True : 
+    select = int(input('''\n메뉴를 선택하세요: 
+1. 전체 학생 목록 보기 
+2. 평균 점수 구하기
+3. 최고 점수 학생 찾기
+4. 특정 학생 점수 조회
+5. 종료
+선택: '''))
+    
+    # scores 리스트에 점수 집어넣기 
+    for v in dict_value.values() :
+        scores.append(v)
+        
+    # 1번 선택 설정 
+    if select == 1 : 
+        for k, v in dict_value.items() :
+            print(f'- {k}: {v}점')
+            
+    # 2번 선택 설정 
+    elif select == 2 :
+        print(f'평균 점수: {(sum(scores) / len(scores)):.1f}')
+    
+    # 3번 선택 설정 
+    elif select == 3 :
+        max_score = max(scores)
+        for k in dict_value.keys() : 
+            if dict_value[k] == max_score :
+                print(f'최고 점수 학생: {k} ({max_score}점)')
+    
+    # 4번 선택 설정 
+    elif select == 4 :
+        search = input('조회할 학생 이름: ')
+        if search not in dict_value : 
+            print('저장되어 있지 않은 학생입니다.')
+        else : 
+            print(f'{search}의 점수: {dict_value[search]}점')
+        
+    # 5번 선택 설정 
+    elif select == 5 : 
         break
-
-print(f'생성된 비밀번호: {password}')
+    
+    # 잘못된 입력 설정 
+    else : 
+        print('잘못된 입력입니다. 1부터 5 사이의 숫자 중 선택하세요.')
+        
+print('프로그램을 종료합니다.')
+            
+    
