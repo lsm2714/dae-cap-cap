@@ -1,61 +1,45 @@
-# 단어 퀴즈 게임 만들기
-import random
-list_words = []
+# 로또 번호 생성기 
+import random 
+ranking = ['꽝', '꽝', '꽝', '5등', '4등', '3등', '1등']
+
+# 무작위 로또 번호 생성 
+ran_numbers = random.sample(range(1, 46), 7)
+print(ran_numbers)
+
+# 번호 입력 (공백으로 구분)
+choice_numbers = input('번호 6개 입력 (공백으로 구분): ').split()
+choice_numbers = [int(i) for i in choice_numbers]
+
+# 당첨 번호와 보서스 번호 출력 
+print(f'{sorted(ran_numbers[:6])} 보너스: {ran_numbers[-1]}')
+
+# 일치 개수 확인 
 correct = 0
-wrong = 0 
-score = 0
+special = False 
+for i in choice_numbers  : 
+    # 보너스 제외 6개 번호
+    if i in ran_numbers[:6] : 
+        correct += 1 
+    # 보너스 번호
+    if i == ran_numbers[-1] : 
+        special = True 
 
-# 딕셔너리에 퀴즈 단어 저장 + 단어만 따로 저장 
-dict_value = {
-    'おはようございます' : '안녕하세요',
-    '権利' : '권리',
-    '謙遜' : '겸손',
-    '金融' : '금융',
-    '霜' : '서리',
-    '霧' : '안개',
-    '相性' : '궁합이 맞음',
-    'カラス' : '까마귀',
-    'ひぐらし' : '쓰르라미'
-}
-
-for k in dict_value.keys() :
-    list_words.append(k)
-
-# 풀 문제의 개수 입력 
-while True : 
-    number = int(input('몇 문제를 푸시겠습니까? '))
-    if number > len(dict_value) or number < 1 : 
-        print('범위를 벗어났습니다.')
-        continue
-    else : 
-        break
-
-# 퀴즈 단어 출력 + 퀴즈 풀이 
-count = 1
-for i in random.sample(list_words, number) : 
-    quiz = input(f'문제 {count}: {i}의 뜻은? -> ')
-    # 정답일 경우
-    if quiz == dict_value[i] :
-        print('정답입니다!\n')
-        correct += 1
-        score += 10
-    # 오답일 경우 
-    else : 
-        print(f'오답입니다. 정답: {dict_value[i]}\n')
-        wrong += 1
-    count += 1
-
-# result 설정 
-if correct / 2 < wrong : 
-    result = '더 노력하세요!'
-elif correct / 2 > wrong :
-    result = '훌륭합니다!'
+# 일치 개수 출력 
+matching = f'일치 개수: {correct}개'
+if correct == 5 and special :
+    print(matching + ' + 보너스')
 else : 
-    result = '잘했어요!'
+    print(matching)
 
-# 결과 출력 
-print('=== 결과 ===')
-print(f'정답 개수: {correct}')
-print(f'오답 개수: {wrong}')
-print(f'점수: {score}')
-print(f'{result}')
+# 결과(등) 출력 
+for i, e in enumerate(ranking) : 
+    result = f'결과: {e}'
+    if correct == i :
+        if correct == 5 : 
+            if special : 
+                print(f'결과: 2등')
+            else : 
+                print(result)
+            break
+        else : 
+            print(result)
