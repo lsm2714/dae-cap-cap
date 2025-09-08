@@ -1,29 +1,20 @@
-# 단어 등장 횟수 세기 
-dict_value = {} 
+# 완전수 판별하기 
+# 정수 입력받기 
+number = int(input('Enter a number: '))
 
-# 입력 설정 
-input_value = input('Enter a sentence: ')
+# 약수 구하기 (n%d 했을 때 나머지가 0이 되는 수)
+numbers_list = []
+for i in range(1, number) :
+    if number % i == 0 :
+        numbers_list.append(i)
 
-# 특수 문자와 띄어쓰기 제거 후 리스트에 집어넣기 + 사전순 정렬
-words = ''
-for i in input_value : 
-    if i in '.,!?' :
-        continue
-    words += i
-list_value = sorted(words.split())
+# 자신을 제외한 약수를 모두 더했을 때의 수가 number과 같을 경우 완전수 
+perfect_number = 0
+for i in numbers_list :
+    perfect_number += i
 
-# 소문자 전환 
-list_value = [i.lower() for i in list_value]
-
-# 단어 출력 횟수 세기 
-for i in list_value :
-    # dict_value에 없을 경우 1과 함께 추가 
-    if i not in dict_value : 
-        dict_value[i] = 1
-    # 있을 경우 +1 
-    else : 
-        dict_value[i] += 1
-
-# 결과 출력 
-for k, v in dict_value.items() :
-    print(f'{k} : {v}')
+# 결과 출력
+if perfect_number == number :
+    print(f'{number} is a Perfect Number')
+else : 
+    print(f'{number} is not a Perfect Number')
