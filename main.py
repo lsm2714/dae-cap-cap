@@ -1,45 +1,29 @@
-# 로또 번호 생성기 
-import random 
-ranking = ['꽝', '꽝', '꽝', '5등', '4등', '3등', '1등']
+# 단어 등장 횟수 세기 
+dict_value = {} 
 
-# 무작위 로또 번호 생성 
-ran_numbers = random.sample(range(1, 46), 7)
-print(ran_numbers)
+# 입력 설정 
+input_value = input('Enter a sentence: ')
 
-# 번호 입력 (공백으로 구분)
-choice_numbers = input('번호 6개 입력 (공백으로 구분): ').split()
-choice_numbers = [int(i) for i in choice_numbers]
+# 특수 문자와 띄어쓰기 제거 후 리스트에 집어넣기 + 사전순 정렬
+words = ''
+for i in input_value : 
+    if i in '.,!?' :
+        continue
+    words += i
+list_value = sorted(words.split())
 
-# 당첨 번호와 보서스 번호 출력 
-print(f'{sorted(ran_numbers[:6])} 보너스: {ran_numbers[-1]}')
+# 소문자 전환 
+list_value = [i.lower() for i in list_value]
 
-# 일치 개수 확인 
-correct = 0
-special = False 
-for i in choice_numbers  : 
-    # 보너스 제외 6개 번호
-    if i in ran_numbers[:6] : 
-        correct += 1 
-    # 보너스 번호
-    if i == ran_numbers[-1] : 
-        special = True 
+# 단어 출력 횟수 세기 
+for i in list_value :
+    # dict_value에 없을 경우 1과 함께 추가 
+    if i not in dict_value : 
+        dict_value[i] = 1
+    # 있을 경우 +1 
+    else : 
+        dict_value[i] += 1
 
-# 일치 개수 출력 
-matching = f'일치 개수: {correct}개'
-if correct == 5 and special :
-    print(matching + ' + 보너스')
-else : 
-    print(matching)
-
-# 결과(등) 출력 
-for i, e in enumerate(ranking) : 
-    result = f'결과: {e}'
-    if correct == i :
-        if correct == 5 : 
-            if special : 
-                print(f'결과: 2등')
-            else : 
-                print(result)
-            break
-        else : 
-            print(result)
+# 결과 출력 
+for k, v in dict_value.items() :
+    print(f'{k} : {v}')
