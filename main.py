@@ -1,20 +1,20 @@
-# 완전수 판별하기 
-# 정수 입력받기 
-number = int(input('Enter a number: '))
+# 회문 검사하기 
+# 문자열 입력하기 
+input_value = input('Enter a string: ')
 
-# 약수 구하기 (n%d 했을 때 나머지가 0이 되는 수)
-numbers_list = []
-for i in range(1, number) :
-    if number % i == 0 :
-        numbers_list.append(i)
+# 띄어쓰기, 특수문자 제거 
+words = ''
+for i in input_value :
+    if i in ' ,.!?' :
+        continue 
+    words += i
 
-# 자신을 제외한 약수를 모두 더했을 때의 수가 number과 같을 경우 완전수 
-perfect_number = 0
-for i in numbers_list :
-    perfect_number += i
+# : 를 기준으로 리스트에 담기 + 대소문자 구분 없애기
+list_value = words.split(':')
+list_value = [i.lower() for i in list_value]
 
-# 결과 출력
-if perfect_number == number :
-    print(f'{number} is a Perfect Number')
+# 팰린드롬 검사 
+if list_value[1] in list_value[0][::-1] :
+    print('Palindrome')
 else : 
-    print(f'{number} is not a Perfect Number')
+    print('Not Palindrome')
