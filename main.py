@@ -1,20 +1,27 @@
-# 회문 검사하기 
-# 문자열 입력하기 
-input_value = input('Enter a string: ')
+# 두 수의 합 
+# 숫자들 공백으로 입력 
+numbers = input('Enter numbers: ').split() 
+numbers = [int(i) for i in numbers]
+count = 0
+indexs = []
+for _ in numbers : 
+    indexs.append(count)
+    count += 1
 
-# 띄어쓰기, 특수문자 제거 
-words = ''
-for i in input_value :
-    if i in ' ,.!?' :
-        continue 
-    words += i
+# 타겟 입력 
+target = int(input('Enter target: '))
 
-# : 를 기준으로 리스트에 담기 + 대소문자 구분 없애기
-list_value = words.split(':')
-list_value = [i.lower() for i in list_value]
+# 반복 설정 
+for i1 in indexs : 
+    for i2 in indexs :
+        if i1 == i2 :
+            continue
+        if numbers[i1] + numbers[i2] == target : 
+            print(f'{i1}, {i2}')
+            exit()
 
-# 팰린드롬 검사 
-if list_value[1] in list_value[0][::-1] :
-    print('Palindrome')
-else : 
-    print('Not Palindrome')
+# 아무것도 출력 안되면 
+print('두 수를 합해서 target이 나올 경우의 수가 없습니다.')
+        
+
+        
