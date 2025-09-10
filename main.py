@@ -1,27 +1,16 @@
-# 두 수의 합 
-# 숫자들 공백으로 입력 
-numbers = input('Enter numbers: ').split() 
+# 엘베 시뮬레이션 
+# 띄어쓰기 기준으로 정수들 입력 
+numbers = input('Enter floors: ').split()
 numbers = [int(i) for i in numbers]
-count = 0
-indexs = []
-for _ in numbers : 
-    indexs.append(count)
+
+# 엘베 이동 시간 계산 
+time = abs(1 - numbers[0])
+count = 1
+for i in numbers :
+    if count < len(numbers) :
+        time += abs(i - numbers[count])
     count += 1
 
-# 타겟 입력 
-target = int(input('Enter target: '))
-
-# 반복 설정 
-for i1 in indexs : 
-    for i2 in indexs :
-        if i1 == i2 :
-            continue
-        if numbers[i1] + numbers[i2] == target : 
-            print(f'{i1}, {i2}')
-            exit()
-
-# 아무것도 출력 안되면 
-print('두 수를 합해서 target이 나올 경우의 수가 없습니다.')
-        
+print(f'총 이동 시간: {time}초')
 
         
