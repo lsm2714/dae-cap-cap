@@ -1,18 +1,26 @@
-# 소수 구하기 
-numbers = []
+# 가장 긴 단어 찾기 
+# String 입력 
+input_value = input()
+words = ''
 
-# 숫자 입력 
-number = int(input('Enter a number: '))
+# 특수 문자 제거 후 리스트로 변경 
+for i in input_value : 
+    if i in '.,!?' :
+        words += ' '
+        continue
+    words += i 
+    
+words = words.split() 
+words_2 = []
+for i in words :
+    if i not in words_2 : 
+        words_2.append(i)
+    
+# max_value 설정 
+max_value = max(words)
+max_value = len(max_value)
 
-# 소수 구하기 
-for i1 in range(2, number + 1) : 
-    list_value = []
-    for i2 in range(2, i1) :
-        value = i1 % i2
-        list_value.append(value) 
-    if 0 not in list_value :
-        numbers.append(i1)
-
-# 결과 출력 
-print(numbers)
-        
+# 가장 긴 단어 찾기 설정
+for i in words_2 :
+    if len(i) == max_value :
+        print(f'가장 긴 단어: {i} (길이: {max_value})')
