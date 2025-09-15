@@ -1,50 +1,58 @@
-# ATM 출금 시뮬레이션 
-dict_value = {} 
-moneys = [50000, 10000, 5000, 1000, 500, 100, 50, 10]
-amounts = []
+# 자판기 시뮬레이션 
+moneys = [500, 100, 50, 10]
+dict_money = {} 
 
-# 돈 입력받기 
-amount = int(input('Enter amount: '))
+dict_value = { # 메뉴
+    '콜라' : 1200,
+    '사이다' : 1000,
+    '커피' : 1500,
+    '물' : 700
+} 
 
-# 10원 미만 출금 불가 설정 
+# 투입할 금액 입력 
+money = int(input('투입 금액: '))
+
+# 음료 구매 반복 설정 
 while True : 
-    if amount < 10 :
-        print('10원 미만은 출금할 수 없습니다. 다시 입력해 주세요')
-        continue
-    else : 
+    name = input('구매할 음료: ')
+    # '없음'일 경우 break
+    if name == '없음' :
         break
-    
-# 돈 출금 반복 설정 
-for m in moneys : 
-    # 빼는 돈이 바뀌 때마다 count 초기화
-    count = 0 
-    # amount가 m(돈)과 같거나 클 때만 계산 시작 
-    while amount >= m : 
-        amount -= m 
-        count += 1
-    # 딕셔너리에 집어넣기, amouts 리스트에 현재 남은 가격 집어넣기
-    if count != 0 :
-        # 쉼표 붙이기 
-        if m >= 1000 :
-            hit = 0
-            m2 = str(m)
-            m = ''
-            for i in m2[::-1] : 
-                hit += 1
-                m += i
-                if hit == 3 :
-                    m += ','
-            m = m[::-1]
-        dict_value[f'{m}원'] = count
-        amounts.append(amount)
-
-# 결과 출력 
-for k, v in dict_value.items() : 
-    # 장, 개 구분
-    if len(k) > 4 : 
-        print(f'{k}: {v}장', end=' ')
+    if name in dict_value : 
+        # 만약 잔액이 충분할 경우 
+        if dict_value[name] <= money :
+            money -= dict_value[name]
+            print(f'{name} 구매 완료')
+        # 잔액 부족일 경우 
+        else : 
+            print('잔액 부족')
+    # 잘못된 입력 설정
     else : 
-        print(f'{k}: {v}개', end=' ')
-    print(f'(나머지: {amounts.pop(0)}원)')
+        print('잘못된 입력입니다.')
+
+# 잔돈 설정 (반복)
+if money >= 10 :
+    for m in moneys : 
+        count = 0 # 동전 갯수 카운트
+        # 빼기 반복 설정 
+        while True : 
+            if money < m : 
+                break
+            money -= m 
+            count += 1
+        # dict_money에 count가 0 이상인 것만 집어넣기 
+        if count >= 1 :
+            dict_money[f'{m}원'] = f'{count}개'
+    # 잔돈 출력 설정 
+    count = 0 
+    print('잔돈: ', end='')
+    for k, v in dict_money.items() :
+        print(f'{k} {v}', end='') 
+        # 쉼표 설정
+        count += 1
+        if count != len(dict_money) : 
+            print(', ', end='')
+else : 
+    print('\n잔돈 없음')
 
     
