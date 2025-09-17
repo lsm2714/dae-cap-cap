@@ -1,38 +1,16 @@
-# 가계부 관리 프로그램 
+# 단어 뒤집기 암호 
 list_value = []
-list_value_2 = []
-dict_value = {}
-money = 0
 
-# 반복 설정
-while True : 
-    # (항목 이름, 금액, 카테고리)의 형태로 지출 입력
-    input_value = input('지출 입력 (quit 입력 시 종료): ')
-    if input_value == 'quit' : 
-        break
-    list_value.append(input_value)
+# 단어 입력 
+sentence = input('Enter a sentence: ').split()
 
-# list_value의 안에 있는 요소들을 리스트로 변환 후 list_value_2에 집어넣기 
-for e in list_value : 
-    e = e.split(', ')
-    list_value_2.append(e)
+# 홀수는 그대로 놔두고 짝수 자리만 뒤집기 
+count = 1
+for i in sentence : 
+    if count % 2 == 0 :
+        i = i[::-1]
+    count += 1
+    list_value.append(i)
 
-# 딕셔너리에 {카테고리 : 가격}의 형태로 저장
-for i in list_value_2 : 
-    if i[2] not in dict_value :
-        dict_value[i[2]] = int(i[1])
-    else : 
-        dict_value[i[2]] += int(i[1])
-
-# 지출 내역 출력 + 전체 지출 출력 
-print('\n지출 내역: ')
-for i in list_value_2 : 
-    money += int(i[1])
-    print(f'- {i[0]}: {i[1]}원 ({i[2]})')
-    
-print(f'\n전체 지출: {money:,}원')
-
-# 카테고리별 지출 출력 
-print('\n카테고리별 지출: ')
-for k, v in dict_value.items() :
-    print(f'{k}: {v:,}원')
+# 결과 출력 
+print(f' '.join(list_value))
