@@ -1,51 +1,66 @@
-# 학점 계산기 
+# 쇼핑몰 주문 총액 계산기 
 
-# 점수 입력하는 함수
-def main() : 
-    scores = []
-    subjects = ['국어', '영어', '수학', '과학']
-    # 점수 4회 반복 입력 (국, 영, 수, 과)
-    for s in subjects : 
-        input_score = int(input(f'{s} 점수 입력: '))
-        # 점수를 리스트에 넣기 (음수일 경우 다시 입력)
-        if input_score >= 0 : 
-            scores.append(input_score)
+# 상품을 입력하는 함수 (반복) 
+def main() :
+    name = input('상품명 입력 (quit 입력 시 종료): ')
+    if name == 'quit' : 
+        return name 
+    else : 
+        # 이미 cart에 저장되어 있는 상품일 경우 가격 패스 (다른 가격 입력 방지)
+        if name not in cart : 
+            price = int(input('가격: '))
+            # 음수 가격 입력 방지 
+            if price < 0 : 
+                while True : 
+                    print('잘못된 입력입니다. 올바른 가격을 입력해 주세요.')
+                    price = int(input('가격: '))
+                    if price >= 0 :
+                        break
+                    else :
+                        continue
+                    
         else : 
+            price = cart[name]['가격']
+        qty = int(input('수량: '))
+        # 음수 수량 입력 방지
+        if qty < 1 :
             while True : 
-                input_score = int(input('잘못된 입력입니다. 다시 입력해 주세요.\n'))
-                if input_score >= 0 :
-                    scores.append(input_score)
+                print('잘못된 수량입니다. 올바른 수량을 입력해 주세요.')
+                qty = int(input('수량: '))
+                if qty >= 1 :
                     break
-                else : 
+                else :
                     continue
-    return scores
+        return add_item(name, price, qty)
 
-# 점수 받고 평균 반환하는 함수
-def get_average(scores) : 
-    avg = sum(scores) / len(scores) 
-    return avg 
+# 상품 개수와 가격을 받아 저장하는 함수
+cart = {} 
+def add_item(name, price, qty) : 
+    if name not in cart : 
+        cart[name] = {'가격' : price, '수량' : qty}
+    else : 
+        cart[name]['수량'] += qty
 
-# 평균으로 학점 정하는 함수
-def get_grade(avg) : 
-    scores = [90, 80, 70, 60]
-    credits = ['A', 'B', 'C', 'D']
-    credit = ''
-    for i, e in enumerate(scores) : 
-        if avg >= e : 
-            credit = credits[i]
-            return credit
-    if credit == '' : 
-        return 'F'
-        
-# 점수 리스트 받을 변수
-scores = main() 
+# 장바구니 내용을 출력하는 함수 
+def print_cart(cart) : 
+    print('\n장바구니: ')
+    for k, v in cart.items() :
+        print(f'- {k}: {v['가격']}원 x {v['수량']}개 = {v['가격'] * v['수량']}원')
 
-# 평균 점수 받을 변수
-avg = get_average(scores)
+# 상품들의 총액을 계산해 반환하는 함수
+def calculate_total(cart) : 
+    amount = 0 
+    for v in cart.values() :
+        amount += v['가격'] * v['수량']
+    print(f'\n총액: {amount:,}원')
+    
+# main() 함수 반복 
+result = ''
+while result != 'quit' : 
+    result = main() 
 
-# 학점 받을 변수 
-credit = get_grade(avg) 
+# print_cart 함수 호출 
+print_cart(cart)
 
-# 결과 출력 
-print(f'평균 점수: {avg:.1f}')
-print(f'학점: {credit}')
+# calculate_total 함수 호출
+calculate_total(cart) 
